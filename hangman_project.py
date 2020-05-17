@@ -43,11 +43,12 @@ def show_good_ending():
     print("You survived!")
 
 def input_valid(user_input):
+    global lowercase_ascii_set
     if len(user_input) != 1 or user_input.isspace():
         print("You should print a single letter")
         print('')
         return False
-    if user_input.isupper():
+    if user_input not in lowercase_ascii_set:
         print('It is not an ASCII lowercase letter')
         print('')
         return False
@@ -81,6 +82,7 @@ choices = ['python', 'java', 'kotlin', 'javascript']
 correct_word = random.choice(choices)
 masked_word = '-' * len(correct_word)
 bad_choice_msg = "No such letter in the word"
+lowercase_ascii_set = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'}
 
 
 #  GAME LOOP
