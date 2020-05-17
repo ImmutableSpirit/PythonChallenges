@@ -27,7 +27,7 @@ def trial_division(n, verbose=False):
 
 # True if source is evenly divisible by x and x is not zero
 def is_multiple_of(x, source, verbose=False):
-    if source == 0:
+    if x == 0:
         return False
     # Evenly divisible?
     if source % x == 0:
@@ -65,6 +65,9 @@ class TestPrimeMethods(unittest.TestCase):
 
     def test_3_not_multiple_of_10(self):
         self.assertFalse(is_multiple_of(3, 10))
+
+    def test_is_multiple_false_for_divby0(self):
+        self.assertFalse(is_multiple_of(0, 10))
 
     def test_1_is_not_prime(self):
         self.assertFalse(is_prime(1))
