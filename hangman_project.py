@@ -37,6 +37,23 @@ def show_good_ending():
     print("You guessed the word!")
     print("You survived!")
 
+def input_valid(user_input):
+    if len(user_input) < 1 or len(user_input) > 1:
+        print("You should print a single letter")
+        print('')
+        return False
+    if user_input.isupper():
+        print('It is not an ASCII lowercase letter')
+        print('')
+        return False
+    if already_guessed(user_input):
+        print("You already typed this letter")
+        print('')
+        return False
+    return True
+        
+    
+
 print('H A N G M A N') 
 print('')
 
@@ -51,10 +68,8 @@ bad_choice_msg = "No such letter in the word"
 while (lives > 0):
     print(masked_word)
     letter = input("Input a letter: ")
-    if already_guessed(letter):
-        print("No improvements")
-        lives -= 1
-        print('')
+    if input_valid(letter) == False:
+        continue
     else: 
         occurrences = guess(letter)
         if len(occurrences) > 0:
