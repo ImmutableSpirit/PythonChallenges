@@ -4,6 +4,13 @@ import unittest
 
 
 #  METHODS
+
+def get_menu_option():
+    while(True):
+        choice = input('Type "play" to play the game, "exit" to quit: ')
+        if choice == "play" or choice == "exit":
+            return choice
+
 def get_occurrences(x, source):
     # Use list compression to get indexes of all occurrences of x in the source
     indexPosList = [ i for i in range(len(source)) if source[i] == x ]
@@ -80,42 +87,50 @@ def test_initialize():
     
 #  MAIN SETUP
 print('H A N G M A N') 
+user_option = get_menu_option()
 print('')
 
-lives = 8
-win_condition = False
-choices = ['python', 'java', 'kotlin', 'javascript']
-correct_word = random.choice(choices)
-masked_word = '-' * len(correct_word)
-bad_choice_msg = "No such letter in the word"
-lowercase_ascii_set = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'}
-already_guessed_set = set()
-
 #  GAME LOOP
-while (lives > 0):
-    print(masked_word)
-    letter = input("Input a letter: ")
-    if input_valid(letter) == False:
-        continue
-    else: 
-        occurrences = guess(letter)
-        if len(occurrences) > 0:
-            masked_word = reveal_occurrences(letter, occurrences)
-            if win_condition_check():
-                win_condition = True
-                break
-            print('')
-        else:
-            print(bad_choice_msg)
-            lives -= 1
-            print('')
+while user_option == 'play':
 
-#  RESOLUTION
+    #  INITIALIZE CURRENT SESSION
+    lives = 8
+    win_condition = False
+    choices = ['python', 'java', 'kotlin', 'javascript']
+    correct_word = random.choice(choices)
+    masked_word = '-' * len(correct_word)
+    bad_choice_msg = "No such letter in the word"
+    lowercase_ascii_set = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'}
+    already_guessed_set = set()
+    
+    #  START GUESSING
+    while (lives > 0):
+        print(masked_word)
+        letter = input("Input a letter: ")
+        if input_valid(letter) == False:
+            continue
+        else: 
+            occurrences = guess(letter)
+            if len(occurrences) > 0:
+                masked_word = reveal_occurrences(letter, occurrences)
+                if win_condition_check():
+                    win_condition = True
+                    break
+                print('')
+            else:
+                print(bad_choice_msg)
+                lives -= 1
+                if lives > 0: print('')
+    #  RESOLUTION
+    if win_condition:
+        show_good_ending()
+    else:
+        show_bad_ending()
+    print('')
+    user_option = get_menu_option()
 
-if win_condition:
-    show_good_ending()
-else:
-    show_bad_ending()
+
+
 
 
 
