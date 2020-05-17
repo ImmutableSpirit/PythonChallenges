@@ -26,9 +26,9 @@ def reveal_occurrences(new_char, indexes):
 def win_condition_check():
     global lives
     global masked_word
-    cond1 = lives > 0
-    cond2 = '-' not in masked_word
-    return cond1 and cond2
+    cond1 = lambda lives : lives > 0
+    cond2 = lambda word : '-' not in word
+    return cond1(lives) and cond2(masked_word)
 
 def show_bad_ending():
     print("You are hanged!")
