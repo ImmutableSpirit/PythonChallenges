@@ -13,8 +13,12 @@ def guess(letter):
     return get_occurrences(letter, correct_word)  
 
 def already_guessed(letter):
-    global masked_word
-    return letter in masked_word
+    global already_guessed_set
+    if letter in already_guessed_set:
+        return True
+    else:
+        already_guessed_set.add(letter)
+        return False
 
 def reveal_occurrences(new_char, indexes):
     string_builder = []
@@ -71,6 +75,8 @@ def test_initialize():
     masked_word = '-' * len(correct_word)
     global bad_choice_msg
     bad_choice_msg = "No such letter in the word"    
+    global already_guessed_set
+    already_guessed_set.clear()
     
 #  MAIN SETUP
 print('H A N G M A N') 
@@ -83,7 +89,7 @@ correct_word = random.choice(choices)
 masked_word = '-' * len(correct_word)
 bad_choice_msg = "No such letter in the word"
 lowercase_ascii_set = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'}
-
+already_guessed_set = set()
 
 #  GAME LOOP
 while (lives > 0):
